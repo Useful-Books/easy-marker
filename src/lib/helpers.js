@@ -1,3 +1,4 @@
+import isTouchDevice from 'is-touch-device'
 import { DeviceType } from './types'
 
 /**
@@ -380,10 +381,13 @@ export function matchSubString(originStr = '', subStr = '') {
  */
 export function getDeviceType() {
   if (typeof navigator !== 'undefined' && navigator.userAgent) {
-    const ua = navigator.userAgent
-    if (ua.indexOf('Tablet') > -1 || ua.indexOf('Pad') > -1 || ua.indexOf('Nexus 7') > -1) return DeviceType.MOBILE
-    if (ua.indexOf('Mobi') > -1 || ua.indexOf('Android') > -1 || ua.indexOf('iPh') > -1 || ua.indexOf('FLOW') > -1) { return DeviceType.MOBILE }
-    return DeviceType.PC
+    // const ua = navigator.userAgent
+    // if (ua.indexOf('Tablet') > -1 || ua.indexOf('Pad') > -1 || ua.indexOf('Nexus 7') > -1) return DeviceType.MOBILE
+    // if (ua.indexOf('Mobi') > -1 || ua.indexOf('Android') > -1 || ua.indexOf('iPh') > -1 || ua.indexOf('FLOW') > -1) { return DeviceType.MOBILE }
+    // return DeviceType.PC
+
+    // Patch to detech iPad as a mobile device
+    return isTouchDevice() ? DeviceType.MOBILE : DeviceType.PC;
   }
   return DeviceType.MOBILE
 }
